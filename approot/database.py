@@ -11,8 +11,7 @@ from sqlalchemy import Boolean, BigInteger, String, DateTime, ForeignKey
 
 from sqlalchemy.orm import (
     Mapped,
-    mapped_column,
-    relationship,
+    mapped_column
 )
 
 import library as applib
@@ -21,16 +20,27 @@ import library as applib
 class Base(DeclarativeBase): pass
 
 
+class UserStatus(Base):
+    """ The status of a Sweatscore user record """
+
+    __tablename__ = 'user_statuses'
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    description: Mapped[str] = mapped_column(String(250))
+
+
 class SweatscoreUser(Base):
     """ The main Sweatscore user account table """
 
     __tablename__ = 'users'
 
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     email_address: Mapped[str] = mapped_column(String(250))
     password: Mapped[str] = mapped_column(String(200))
     created_at: Mapped[datetime] = mapped_column(DateTime)
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+
+    status: Mapped['UserStatus'] = mapped_column(ForeignKey('user_statuses.id'))
 
 
 # class FacebookUser(Base):
