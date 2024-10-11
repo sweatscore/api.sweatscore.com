@@ -233,21 +233,3 @@ To run the test suite:
   test_runner = unittest.TextTestRunner()
 
   test_runner.run(my_test_class_test_suite())
-
-
-import bcrypt
-
-def hash_password(password):
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed_password
-
-def check_password(password, hashed_password):
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
-
-password = "mysecretpassword"
-hashed = hash_password(password)
-
-print(hashed)
-print(check_password(password, hashed))  # True
-print(check_password("wrongpassword", hashed))  # False
