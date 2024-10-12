@@ -16,6 +16,8 @@ from sqlalchemy.orm import (
 
 import library as applib
 
+engine = None
+
 
 class Base(DeclarativeBase): pass
 
@@ -30,7 +32,7 @@ class UserStatus(Base):
 
 
 class SweatscoreUser(Base):
-    """ The main Sweatscore user account table """
+    """ The Sweatscore user account table """
 
     __tablename__ = 'users'
 
@@ -41,6 +43,16 @@ class SweatscoreUser(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 
     status: Mapped['UserStatus'] = mapped_column(ForeignKey('user_statuses.id'))
+
+
+class ReturnCodes(Base):
+    """ Status codes and descriptions that can be returned to the front-end client """
+
+    __tablename__ = 'return_codes'
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    code: Mapped[str] = mapped_column(String(8), unique=True)
+    message: Mapped[str] = mapped_column(String(500))
 
 
 # class FacebookUser(Base):
@@ -141,8 +153,9 @@ def create_connection_string():
     return connection_string
 
 
-connection_string = create_connection_string()
+if engine is None:
+    connection_string = create_connection_string()
 
-engine = create_engine(connection_string, echo=applib.DEBUG)
+    engine = create_engine(connection_string, echo=applib.DEBUG)
 
-SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
