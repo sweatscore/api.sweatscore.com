@@ -5,6 +5,7 @@
 """
 
 from datetime import datetime
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy import Boolean, BigInteger, String, DateTime, ForeignKey
@@ -38,7 +39,7 @@ class SweatscoreUser(Base):
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     email_address: Mapped[str] = mapped_column(String(250))
-    password: Mapped[str] = mapped_column(String(200))
+    password: Mapped[str] = mapped_column(String(100))
     created_at: Mapped[datetime] = mapped_column(DateTime)
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 
