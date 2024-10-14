@@ -66,6 +66,8 @@ class EmailCode(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     code: Mapped[str] = mapped_column(String(8), unique=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+    
     user: Mapped['SweatscoreUser'] = relationship()
 
 
