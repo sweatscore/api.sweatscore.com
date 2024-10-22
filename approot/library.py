@@ -56,8 +56,8 @@ def get_config_section(section):
 
 
 # Constants
-# SIGNUP_SESSION_DURATION = 2 * 60
-# DEFAULT_SESSION_DURATION = 6 * 60
+SIGNUP_SESSION_DURATION = 2 * 60
+DEFAULT_SESSION_DURATION = 6 * 60
 
 # Create directory references
 APP_DIR = Path(__file__).resolve().parent
@@ -71,6 +71,7 @@ TITLE = app_settings['title']
 ALLOWED_ORIGINS = app_settings['allowed_origins'].split(',')
 
 # Get application secrets
-# app_secrets = get_config_section('secrets')
+app_secrets = get_config_section('secrets')
 
-# DIGIADS_SECRET_KEY = bytes(app_secrets['secret_key'], encoding='utf-8')
+#SWEATSCORE_SECRET_KEY = bytes(app_secrets['secret_key'], encoding='utf-8')
+SWEATSCORE_SECRET_KEY = app_secrets['secret_key']

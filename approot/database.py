@@ -18,8 +18,6 @@ from sqlalchemy.orm import (
 
 import library as applib
 
-engine = None
-
 
 class Base(DeclarativeBase): pass
 
@@ -100,9 +98,8 @@ def create_connection_string():
     return connection_string
 
 
-if engine is None:
-    connection_string = create_connection_string()
+connection_string = create_connection_string()
 
-    engine = create_engine(connection_string, echo=applib.DEBUG)
+engine = create_engine(connection_string, echo=applib.DEBUG)
 
-    SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
