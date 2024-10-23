@@ -40,7 +40,7 @@ class SweatscoreUser(Base):
     status_id: Mapped['UserStatus'] = mapped_column(ForeignKey('user_statuses.id'))
     email_address: Mapped[str] = mapped_column(String(250))
     password: Mapped[str] = mapped_column(String(100))
-    token: Mapped[str] = mapped_column(String(200), nullable=True)
+    session_token: Mapped[str] = mapped_column(String(200), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime)
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 
