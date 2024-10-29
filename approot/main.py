@@ -8,9 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import library as applib
 
 from apps.signup.router import router as signup_router
+from apps.authorization.router import router as auth_router
 # from apps.user.views import router as user_router
 # from apps.account.views import router as account_router
-# from apps.authorization.views import router as auth_router
 
 
 @asynccontextmanager
@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
 #     applib.open_logger()
 
     app.include_router(signup_router)
-#     app.include_router(auth_router)
+    app.include_router(auth_router)
 #     app.include_router(user_router)
 #     app.include_router(account_router)
 
