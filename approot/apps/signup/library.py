@@ -82,14 +82,14 @@ def new_user(request, dbsession):
             'message': 'The user account has been created.',
             'session_token': session_token
         }
+    # User email address needs to be verified
     elif user.status_id == 1:
-        # User email address needs to be verified
         response = {
             'code': '84ei1fdf',
             'message': "User email address needs to be verified."
         }
+    # The user is already signed-up. Redirect to login.
     else:
-        # The user is already signed-up. Redirect to login.
         response = {
             'code': '6216ga03',
             'message': 'The user is already signed-up.'

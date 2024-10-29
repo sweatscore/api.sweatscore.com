@@ -19,6 +19,14 @@ def hash_password(unhashed_password):
 
     return str(hashed_password, 'utf-8')
 
+def check_password(login_password: str, database_password: str) -> bool:
+    """ Verifies that two passwords match """
+
+    password_1 = login_password.encode('utf-8')
+    password_2 = database_password.encode('utf-8')
+
+    return bcrypt.checkpw(password_1, password_2)
+
 def get_email_code():
     """ Generates a code to send to a user's email address """
 
@@ -58,3 +66,18 @@ def create_session_token(
         'token': str(encrypted_value, 'utf-8'),
         'expiration': javascript_timedelta
     }
+
+# def verify_session(
+#     encrypted_value,
+#     session_time = None,
+#     secret_key = applib.SWEATSCORE_SECRET_KEY) -> int:
+#     """ Decrypts the session token and verifies it is not expired """
+
+#     # Set the default session time
+#     if session_time is None:
+#         session_time = datetime.now()
+
+#     # Decrypt the token
+#     fernet = Fernet(bytes(secret_key, encoding='utf-8'))
+
+#     encrypted_value = fernet.encrypt(bytes(value_to_encrypt, 'utf-8'))
