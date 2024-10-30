@@ -37,12 +37,14 @@ class SweatscoreUser(Base):
     __tablename__ = 'users'
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
-    status_id: Mapped['UserStatus'] = mapped_column(ForeignKey('user_statuses.id'))
+    status_id: Mapped[int] = mapped_column(ForeignKey('user_statuses.id'))
     email_address: Mapped[str] = mapped_column(String(250))
     password: Mapped[str] = mapped_column(String(100))
     session_token: Mapped[str] = mapped_column(String(200), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime)
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+
+    user_status: Mapped['UserStatus'] = relationship()
 
 
 class ReturnCode(Base):
